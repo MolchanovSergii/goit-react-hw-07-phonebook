@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 
 import { StyledForm, StyledInput, StyledButton } from './ContactForms.styled';
 
@@ -10,6 +10,7 @@ const ContactForms = () => {
   const [number, setNumber] = useState('');
 
   const contactsList = useSelector(state => state.contacts);
+
   const dispatch = useDispatch();
 
   const uniqueId = nanoid();
@@ -33,7 +34,7 @@ const ContactForms = () => {
   const handleSubmitForm = event => {
     event.preventDefault();
 
-    const isDuplicateName = contactsList.some(contacts =>
+    const isDuplicateName = contactsList.items.some(contacts =>
       contacts.name.toLowerCase().includes(name.toLowerCase())
     );
 
@@ -42,10 +43,10 @@ const ContactForms = () => {
       return;
     }
 
-    const contact = { id: nanoid(), name, number };
+    const contact = { name, number };
+    reset();
 
     dispatch(addContact(contact));
-    reset();
   };
 
   const reset = () => {

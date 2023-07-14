@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import { fetchAllContacts } from 'redux/operations';
 
 import { StyledButton } from '../ContactForms/ContactForms.styled';

@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllContacts, addContact } from './operations';
+import { fetchAllContacts, addContact, deleteContact } from './operations';
+import {
+  handlePending,
+  handleRejected,
+  handleFetchAllContacts,
+  handleAddContact,
+  handleDeleteContact,
+} from './asyncRedusers';
 
 const initialState = {
   items: [],
@@ -11,31 +18,17 @@ export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
 
-  extraReducers: {
-    [fetchAllContacts.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [fetchAllContacts.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.isLoading = false;
-    },
-    [fetchAllContacts.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-    [addContact.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [addContact.fulfilled]: (state, action) => {
-      state.items.push(action.payload);
-      state.isLoading = false;
-    },
-    [addContact.rejected]: (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    },
-  },
+  extraReducers: builder =>
+    builder
+      .addCase(fetchAllContacts.pending, handlePending)
+      .addCase(fetchAllContacts.fulfilled, handleFetchAllContacts)
+      .addCase(fetchAllContacts.rejected, handleRejected)
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, handleAddContact)
+      .addCase(addContact.rejected, handleRejected)
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, handleDeleteContact)
+      .addCase(deleteContact.rejected, handleRejected),
 });
 
-export const { deleteContact } = contactsSlice.actions;
 export default contactsSlice.reducer;

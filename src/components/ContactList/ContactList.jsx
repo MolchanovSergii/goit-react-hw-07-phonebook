@@ -22,7 +22,6 @@ const ContactList = () => {
     dispatch(fetchAllContacts());
   }, [dispatch]);
 
-  console.log(contactsList);
   return (
     <>
       {isLoading && <Loader />}

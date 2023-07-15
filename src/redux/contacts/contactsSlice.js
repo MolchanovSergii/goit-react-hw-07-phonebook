@@ -20,15 +20,11 @@ export const contactsSlice = createSlice({
 
   extraReducers: builder =>
     builder
-      .addCase(fetchAllContacts.pending, handlePending)
       .addCase(fetchAllContacts.fulfilled, handleFetchAllContacts)
-      .addCase(fetchAllContacts.rejected, handleRejected)
-      .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, handleAddContact)
-      .addCase(addContact.rejected, handleRejected)
-      .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, handleDeleteContact)
-      .addCase(deleteContact.rejected, handleRejected),
+      .addMatcher(action => action.type.endsWith('/rejected'), handleRejected)
+      .addMatcher(action => action.type.endsWith('/pending'), handlePending),
 });
 
 export default contactsSlice.reducer;

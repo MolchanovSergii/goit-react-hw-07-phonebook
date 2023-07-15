@@ -22,7 +22,6 @@ export const handleAddContact = (state, action) => {
 export const handleDeleteContact = (state, action) => {
   const index = state.items.findIndex(item => item.id === action.payload.id);
   state.items.splice(index, 1);
-  // state.items.filter(item => item.id !== action.payload.id);
   state.isLoading = false;
   state.error = null;
 };

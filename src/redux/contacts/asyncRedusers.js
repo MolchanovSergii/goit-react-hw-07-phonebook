@@ -25,3 +25,9 @@ export const handleDeleteContact = (state, action) => {
   state.isLoading = false;
   state.error = null;
 };
+
+// export const handleDeleteContact = (state, action) => {
+//   state.items = state.items.filter(item => item.id === action.payload.id);
+//   state.isLoading = false;
+//   state.error = null;
+// };
